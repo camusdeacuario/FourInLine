@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<project name="Mi_Proyecto" default="todo" basedir=".">
+
+	<!-- Definicion de constantes(propiedades)-->
+	<property name="src" value="${basedir}/src"/>
+	<property name="class" value="${basedir}/class"/>
+	<property name="jar" value="${basedir}/jar"/>
+	<property name="javadoc" value="${basedir}/javadoc"/>
+	<property name="build.debug" value="on" />
+	
+	<target name="todo" depends="empaqueta, documenta">
+	</target>
+
+	<target name="empaqueta" depends="compila">	
+		<echo message = "empaquetando en FourLine.jar"/>
+		<jar jarfile="${jar}/FourInLine.jar">
+			<fileset dir="${class}" includes="**/*.class"/>
+			<manifest>
+				<attribute name="Main-Class" value="CuatroEnRaya"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="compila" description="compilar el codigo java" depends="prepare" >
+				
+		<echo message = "compilando el codigo..."/>
+		<javac srcdir="${src}" destdir="${class}" debug="${build.debug}"/>
+	</target>
+	
+	<target name="prepare">
+		<echo message = "preparando directorios:"/>
+		<echo message = "creando el directorio class"/>
+		<mkdir dir = "${class}"/>
+		<echo message = "creando el directorio jar"/>
+		<mkdir dir = "${jar}"/>
+		<echo message = "creando el directorio javadoc"/>
+		<mkdir dir = "${javadoc}"/>	
+	</target>
+
+	<target name="documenta">
+	   <javadoc sourcepath="${src}" destdir="${javadoc}" packagenames="*"/>
+	</target>
+	
+	<target name="clean" description="borrar archivos temporales">
+		 <echo message="Limpiando el proyecto" />
+		 <delete dir="${class}"/>
+		 <delete dir="${jar}"/>
+		 <delete dir="${javadoc}"/>
+	</target>
+	
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="Mi_Proyecto" default="run" basedir=".">
+
+	<target name="run" depends="empaqueta, documenta">
+	</target>
+
+	<target name="empaqueta" depends="compila">
+		<jar destfile="../jar/FourInLine.jar" includes="../class/**/*.class"/>
+	</target>
+
+	<target name="compila">
+		<javac srcdir="." destdir="../class"/>
+	</target>
+
+	<target name="documenta">
+	   <javadoc sourcepath="." destdir="../javadoc" packagenames="*"/>
+	</target>
+	
+</project>
